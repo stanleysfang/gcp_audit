@@ -1,3 +1,4 @@
+
 WITH
 dt_arr_table AS (
     SELECT
