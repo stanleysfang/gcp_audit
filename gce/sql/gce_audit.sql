@@ -42,7 +42,7 @@ log_categorize_event_2_action AS (
 SELECT
     project_id,
     instance_id, instance_name, CONCAT(instance_name, ':', SUBSTR(CAST(instance_id AS STRING), 1, 4)) AS instance,
-    DATE(start_ts) AS start_dt, DATE(last_action_ts) AS last_action_dt,
+    last_action_ts,
     CONCAT(day, ' day ', hr, ' hr ', min, ' min ', sec, ' sec') AS uptime, uptime_sec,
     start_by, start_ts,
     stop_by, stop_ts,
