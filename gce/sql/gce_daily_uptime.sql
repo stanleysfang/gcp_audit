@@ -3,9 +3,9 @@ WITH
 dt_arr_table AS (
     SELECT
         project_id, instance_id, instance_name, start_ts, stop_ts, uptime_sec,
-        IF(stop_ts IS NULL, GENERATE_DATE_ARRAY(DATE(start_ts), CURRENT_DATE('-08')), GENERATE_DATE_ARRAY(DATE(start_ts), DATE(stop_ts))) AS dt_arr,
+        IF(stop_ts IS NULL, GENERATE_DATE_ARRAY(DATE(start_ts), CURRENT_DATE('America/Los_Angeles')), GENERATE_DATE_ARRAY(DATE(start_ts), DATE(stop_ts))) AS dt_arr,
         TIMESTAMP_DIFF(TIMESTAMP_TRUNC(TIMESTAMP_ADD(start_ts, INTERVAL 1 DAY), DAY), start_ts, SECOND) AS first_dt_sec,
-        IF(stop_ts IS NULL, TIMESTAMP_DIFF(TIMESTAMP_SUB(CURRENT_TIMESTAMP, INTERVAL 8 HOUR), TIMESTAMP(CURRENT_DATE('-08')), SECOND), TIMESTAMP_DIFF(stop_ts, TIMESTAMP_TRUNC(stop_ts, DAY), SECOND)) AS last_dt_sec
+        IF(stop_ts IS NULL, TIMESTAMP_DIFF(TIMESTAMP(REGEXP_REPLACE(STRING(CURRENT_TIMESTAMP, "America/Los_Angeles"), r'[\+-][0-9]{2}$', '')), TIMESTAMP(CURRENT_DATE('America/Los_Angeles')), SECOND), TIMESTAMP_DIFF(stop_ts, TIMESTAMP_TRUNC(stop_ts, DAY), SECOND)) AS last_dt_sec
     FROM `stanleysfang.monitoring_logging.gce_audit`
 )
 
@@ -20,7 +20,7 @@ FROM (
         SELECT
             project_id, instance_id, instance_name, dt,
             CASE
-                WHEN DATE(start_ts) = CURRENT_DATE('-08') THEN uptime_sec
+                WHEN DATE(start_ts) = CURRENT_DATE('America/Los_Angeles') THEN uptime_sec
                 WHEN DATE(start_ts) = DATE(stop_ts) THEN uptime_sec
                 WHEN rn_asc = 1 THEN first_dt_sec
                 WHEN rn_desc = 1 THEN last_dt_sec

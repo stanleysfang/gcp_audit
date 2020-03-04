@@ -6,7 +6,7 @@ log_raw AS (
         resource.labels.instance_id AS instance_id,
         REGEXP_EXTRACT(protopayload_auditlog.resourceName, r'instances/(.+)$') AS instance_name,
         protopayload_auditlog.authenticationInfo.principalEmail AS username,
-        TIMESTAMP_SUB(timestamp, INTERVAL 8 HOUR) AS ts,
+        TIMESTAMP(REGEXP_REPLACE(STRING(timestamp, "America/Los_Angeles"), r'[\+-][0-9]{2}$', '')) AS ts, -- TIMESTAMP_SUB(timestamp, INTERVAL 8 HOUR)
         REGEXP_EXTRACT(protopayload_auditlog.methodName, r'instances\.(.+)$') AS event
     FROM `stanleysfang.monitoring_logging.cloudaudit_googleapis_com_activity`
     WHERE resource.type = 'gce_instance' AND operation.last = TRUE
@@ -18,7 +18,7 @@ log_raw AS (
         resource.labels.instance_id AS instance_id,
         jsonPayload.resource.name AS instance_name,
         jsonPayload.actor.user AS username,
-        TIMESTAMP_SUB(timestamp, INTERVAL 8 HOUR) AS ts,
+        TIMESTAMP(REGEXP_REPLACE(STRING(timestamp, "America/Los_Angeles"), r'[\+-][0-9]{2}$', '')) AS ts, -- TIMESTAMP_SUB(timestamp, INTERVAL 8 HOUR),
         REGEXP_EXTRACT(jsonPayload.event_subtype, r'instances\.(.+)$') AS event
     FROM `stanleysfang.monitoring_logging.compute_googleapis_com_activity_log_*`
     WHERE jsonPayload.event_type = 'GCE_OPERATION_DONE'
