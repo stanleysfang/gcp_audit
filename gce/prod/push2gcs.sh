@@ -26,6 +26,9 @@ gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
 command="sudo chmod 755 ${home_path}${repository}/gce/prod/*"
 gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
 
+command="sudo chmod 666 ${home_path}${repository}/startup/*"
+gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
+
 command="sudo chmod 666 ${home_path}${repository}/log/*"
 gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
 
