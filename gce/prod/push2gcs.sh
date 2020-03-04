@@ -23,6 +23,12 @@ gsutil -m cp -r ${code_path}startup gs://${gs_bucket}/${repository}/
 command="sudo gsutil -m cp -r gs://${gs_bucket}/${repository} ${home_path}"
 gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
 
+command="sudo chmod 755 ${home_path}${repository}/gce/prod/*"
+gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
+
+command="sudo chmod 666 ${home_path}${repository}/log/*"
+gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
+
 #### Run Time ####
 end_time=$(date)
 start=$(date -d "${start_time}" +%s)
