@@ -10,7 +10,7 @@ client = bigquery.Client(project=project_id)
 # Query
 gce_audit_t_query = \
 """
-SELECT *
+SELECT *, TIMESTAMP(REGEXP_REPLACE(STRING(CURRENT_TIMESTAMP, "America/Los_Angeles"), r'[\+-][0-9]{2}$', '')) AS last_updated_ts
 FROM `stanleysfang.monitoring_logging.gce_audit`
 """
 
@@ -29,7 +29,7 @@ query_job.result()
 # Query
 gce_daily_uptime_t_query = \
 """
-SELECT *
+SELECT *, TIMESTAMP(REGEXP_REPLACE(STRING(CURRENT_TIMESTAMP, "America/Los_Angeles"), r'[\+-][0-9]{2}$', '')) AS last_updated_ts
 FROM `stanleysfang.monitoring_logging.gce_daily_uptime`
 """
 
