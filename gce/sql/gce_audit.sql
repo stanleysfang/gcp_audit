@@ -65,7 +65,7 @@ FROM (
             *,
             CASE
                 WHEN action = 'start' AND next_action = 'stop' THEN TIMESTAMP_DIFF(next_ts, ts, SECOND)
-                WHEN action = 'start' AND next_action IS NULL THEN TIMESTAMP_DIFF(TIMESTAMP_SUB(CURRENT_TIMESTAMP, INTERVAL 8 HOUR), ts, SECOND)
+                WHEN action = 'start' AND next_action IS NULL THEN TIMESTAMP_DIFF(TIMESTAMP(REGEXP_REPLACE(STRING(CURRENT_TIMESTAMP, "America/Los_Angeles"), r'[\+-][0-9]{2}$', '')), ts, SECOND)
                 ELSE NULL
             END AS uptime_sec,
             IF(action = 'start', username, NULL) AS start_by,
