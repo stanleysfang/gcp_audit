@@ -4,12 +4,12 @@ start_time=$(date)
 
 #### Environment ####
 
-project="stanleysfang"
+project_id="stanleysfang"
 
 gs_bucket="stanleysfang"
-repository="gcp_audit"
+repo="gcp_audit"
 
-code_path="/home/sfang/windows/gitlab/stanleysfang/${repository}/"
+code_path="/home/sfang/windows/gitlab/stanleysfang/${repo}/"
 
 instance_name="stanleysfang"
 zone="us-west1-b"
@@ -17,19 +17,19 @@ home_path="/home/stanleysfang92/"
 
 #### push2gcs ####
 
-gsutil -m cp -r ${code_path}gce/prod gs://${gs_bucket}/${repository}/gce/
-gsutil -m cp -r ${code_path}startup gs://${gs_bucket}/${repository}/
+gsutil -m cp -r ${code_path}gce/prod gs://${gs_bucket}/${repo}/gce/
+gsutil -m cp -r ${code_path}startup gs://${gs_bucket}/${repo}/
 
-command="sudo gsutil -m cp -r gs://${gs_bucket}/${repository} ${home_path}"
+command="sudo gsutil -m cp -r gs://${gs_bucket}/${repo} ${home_path}"
 gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
 
-command="sudo chmod 755 ${home_path}${repository}/gce/prod/*"
+command="sudo chmod 755 ${home_path}${repo}/gce/prod/*"
 gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
 
-command="sudo chmod 666 ${home_path}${repository}/startup/*"
+command="sudo chmod 666 ${home_path}${repo}/startup/*"
 gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
 
-command="sudo chmod 666 ${home_path}${repository}/log/*"
+command="sudo chmod 666 ${home_path}${repo}/log/*"
 gcloud compute ssh ${instance_name} --zone ${zone} --command "${command}"
 
 #### Run Time ####
