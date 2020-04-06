@@ -4,17 +4,17 @@ start_time=$(date)
 
 #### Environment ####
 
-project="stanleysfang"
+project_id="stanleysfang"
 
 gs_bucket="stanleysfang"
-repository="gcp_audit"
-code_path=$HOME/${repository}/gce/prod/
-log_path=$HOME/${repository}/log/
+repo="gcp_audit"
+code_path=$HOME/${repo}/gce/prod/
+log_path=$HOME/${repo}/log/
 
 export PATH="/home/stanleysfang92/anaconda3/bin:$PATH"
 
-#### ts_2019_ncov_wrapper ####
-source activate gcp_audit
+#### gce_wrapper ####
+source activate ${repo}
 python ${code_path}gce_dataprep.py 1>${log_path}gce_dataprep.out 2>&1
 
 #### Run Time ####

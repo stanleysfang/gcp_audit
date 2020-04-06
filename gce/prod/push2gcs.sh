@@ -13,7 +13,7 @@ code_path="/home/sfang/windows/gitlab/stanleysfang/${repo}/"
 
 instance_name="stanleysfang"
 zone="us-west1-b"
-home_path="/home/stanleysfang92/"
+home_path="/home/stanleysfang92/" # need this home_path because $HOME can be a different user's home directory
 
 #### push2gcs ####
 
