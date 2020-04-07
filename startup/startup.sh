@@ -11,5 +11,5 @@ conda create -y --name ${repo} python=3.7.0 pip
 source activate ${repo}
 pip install -r ${repo_path}/startup/requirements.txt
 
-jupyter kernelspec remove -y ${repo}
+jupyter kernelspec remove -f ${repo}
 python -m ipykernel install --name ${repo} --display-name "Python 3.7.0 (${repo})" --user
