@@ -10,7 +10,7 @@ dt_arr_table AS (
 )
 
 SELECT
-    project_id, instance_id, instance_name, CONCAT(instance_name, ':', SUBSTR(CAST(instance_id AS STRING), 1, 4)) AS instance, dt,
+    project_id, instance_id, instance_name, CONCAT(instance_name, ':', SUBSTR(CAST(instance_id AS STRING), 1, 6)) AS instance, dt,
     SUM(uptime_hr) AS uptime_hr
 FROM (
     SELECT
