@@ -12,4 +12,4 @@ Tableau Public has limited options for connecting to live data, and Google Sprea
 *support the transfer of data. Data processing is done in BigQuery.*
 
 ### References
-**Exporting with the Logs Viewer:** https://cloud.google.com/logging/docs/export/configure_export_v2
+**Exporting with GCP Logging:** https://cloud.google.com/logging/docs/export/configure_export_v2
