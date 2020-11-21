@@ -102,7 +102,7 @@ function addEmptySheet(sheetsAPI, sheetName) {
 function readCSVContent(sheetsAPI, file, sheetName) {
   return new Promise((resolve, reject) => {
     const storage = new Storage();
-    let fileContents = new Buffer('');
+    let fileContents = new Buffer.alloc(0);
     storage.bucket(file.bucket).file(file.name).createReadStream()
     .on('error', function(err) {
       reject('Storage API returned an error: ' + err);
